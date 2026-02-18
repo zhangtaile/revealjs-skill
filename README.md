@@ -1,96 +1,114 @@
-# revealjs-skill
+# Reveal.js Skill for Gemini CLI 🚀
 
-A Claude Code skill for creating polished, professional [Reveal.js](https://revealjs.com/) HTML presentations using natural language.
+这是一个专为 **Gemini CLI** 打造的高级技能（Skill），旨在通过 AI 自动化创建专业、美观且响应式的 **reveal.js** 演示文稿（HTML 幻灯片）。
 
-**[View Example Presentation](https://ryanbbrown.com/revealjs-skill/examples/revealjs/presentation.html)**
+它不仅仅是一个代码生成器，还内置了专业的设计原则、自动布局脚本、溢出检查工具以及浏览器实时编辑功能，让你无需掌握复杂的 CSS 即可交付高质量的幻灯片。
 
-Allows for:
+## ✨ 核心特性
 
-- Professional themes and color palettes
-- Multi-column layouts
-- Callout boxes and styled components
-- Chart.js integration for data visualization
-- Font Awesome icons
-- Speaker notes
-- Animations and transitions
-- Custom CSS styling
+- **零构建步骤**：生成纯 HTML 和 CSS，直接在浏览器中运行，无需 Webpack 或 Vite。
+- **智能设计驱动**：内置 18 套经过精心挑选的配色方案（从“经典蓝”到“复古彩虹”），并遵循严格的排版和对比度原则。
+- **自动脚手架**：使用 `create-presentation.js` 快速生成复杂的幻灯片结构（支持水平、垂直和分隔符幻灯片）。
+- **质量保障**：包含 `check-overflow.js` 脚本，可自动检测文字是否超出幻灯片边界。
+- **视觉反馈**：支持通过 `decktape` 生成所有幻灯片的截图预览，方便快速审查。
+- **即时编辑**：内置 `edit-html.js` 服务，支持在浏览器中点击文字直接修改并保存。
 
-No build step required - just open the generated HTML in a browser. Can also be exported as a PDF.
+---
 
-## Installation
+## 🛠️ 安装指南
 
-### Plugin (recommended)
+确保你已经安装了 [Gemini CLI](https://github.com/google/gemini-cli)。
 
-Add the marketplace and install the plugin from within Claude Code:
-
-```
-/plugin marketplace add ryanbbrown/revealjs-skill
-/plugin install revealjs@revealjs-skill
-```
-
-Then install dependencies (needed for overflow checking and PDF export):
+### 1. 克隆并准备环境
 
 ```bash
-npm install --prefix ~/.claude/plugins/cache/revealjs
-```
-
-### Manual
-
-Alternatively, copy the `skills/revealjs` folder to your Claude Code skills directory:
-
-```bash
-# User-level installation (available in all projects)
-cp -r skills/revealjs ~/.claude/skills/
-
-# Or project-level installation
-cp -r skills/revealjs .claude/skills/
-```
-
-Install dependencies (needed for overflow checking and PDF export):
-
-```bash
+git clone https://github.com/ryanbbrown/reveal-js-skill.git
+cd reveal-js-skill
 npm install
 ```
 
-### Dependencies
+### 2. 在 Gemini CLI 中安装技能
 
-- **[Playwright](https://playwright.dev/)** - Browser automation for overflow detection
-- **[DeckTape](https://github.com/astefanutti/decktape)** - PDF export and slide screenshots (using a [fork](https://github.com/ryanbbrown/decktape) that adds `--slides` flag for capturing specific slides, enabling faster iteration when fixing visual issues)
-- **[Cheerio](https://cheerio.js.org/)** - HTML parsing to validate generated Chart.js
+你可以通过以下两种方式之一安装此技能：
 
-## Usage
-
-Once installed, simply ask Claude Code to create a presentation:
-
-> "Create a 10-slide presentation about renewable energy trends"
-
-> "Make a pitch deck for a SaaS startup"
-
-> "Build a quarterly business review presentation with charts"
-
-Claude Code will:
-1. Plan the slide structure based on your content
-2. Choose an appropriate color palette and design
-3. Generate the HTML and CSS files
-4. Check for content overflow
-5. Review screenshots of every slide for visual issues
-
-## Browser Editing
-
-After generating a presentation, you can edit text directly in the browser — no need to touch raw HTML:
-
+**方式 A：全局安装（推荐）**
+将此技能安装到你的 Gemini 全局配置中，以便在任何项目中使用：
 ```bash
-node ~/.claude/skills/revealjs/scripts/edit-html.js my-presentation/presentation.html
+gemini skills install skills/revealjs
 ```
 
-This opens the presentation in a local server where you can click any text to edit it inline, then click Save to write changes back to the file. Press Escape to deselect a text element. Useful for wordsmithing, fixing typos, or tweaking copy after Claude generates the initial version.
+**方式 B：软链接安装（开发推荐）**
+如果你打算修改技能代码，建议使用软链接：
+```bash
+gemini skills link skills/revealjs
+```
 
-## Features
+### 3. 验证安装
+在终端运行：
+```bash
+gemini skills list
+```
+如果在列表中看到 `revealjs`，说明安装成功。
 
-Beyond base Reveal.js, this skill adds:
+---
 
-- **Custom CSS theme** - CSS variables for easy customization of colors, typography, callouts, and layout without modifying core styles
-- **Scaffold generation** - Scaffolding script generates HTML structure so the LLM doesn't waste tokens recreating boilerplate
-- **Overflow detection** - Automated checking catches content that extends beyond slide boundaries, faster than taking and reviewing screenshots
-- **Chart export mode** - `?export` query parameter disables Chart.js animations so charts render fully in PDF/screenshots
-- **Dynamic viewport color** - Viewport background color matches each slide's background for seamless full-screen presentation
+## 🚀 如何使用
+
+在 Gemini CLI 会话中，你可以直接向 AI 下达指令。Gemini 会自动调用此技能。
+
+### 常用指令示例
+
+- **创建新演示文稿**：
+  > "帮我制作一个关于‘量子计算入门’的演示文稿。使用‘蓝金（Black & Gold）’配色方案，包含 8 张幻灯片。"
+
+- **指定结构**：
+  > "创建一个名为‘季度汇报’的 PPT，结构为：封面、3张正文、1个分隔符、2张深入探讨、结语。"
+
+- **检查并修复**：
+  > "检查生成的 `presentation.html` 是否有文字溢出，并尝试修复它们。"
+
+- **生成预览**：
+  > "为我的演示文稿生成所有幻灯片的截图以便我检查。"
+
+---
+
+## 📂 项目结构
+
+- `skills/revealjs/SKILL.md`: 技能的核心指令和规则手册。
+- `skills/revealjs/scripts/`: 核心辅助脚本。
+  - `create-presentation.js`: 快速生成幻灯片 HTML 框架。
+  - `check-overflow.js`: 检查内容是否超出显示范围。
+  - `edit-html.js`: 启动本地服务器进行可视化编辑。
+- `skills/revealjs/references/`: 进阶指南（图表使用、动画等）。
+- `examples/`: 演示示例。
+
+---
+
+## 🔧 开发辅助工具
+
+生成演示文稿后，你可以手动使用以下工具：
+
+### 1. 文字实时编辑
+如果你想微调文案，无需修改 HTML 代码：
+```bash
+node skills/revealjs/scripts/edit-html.js ./presentation.html
+```
+然后在浏览器中点击文字即可修改，点击“Save”保存。
+
+### 2. 溢出检查
+确保你的幻灯片在任何屏幕上都显示正常：
+```bash
+node skills/revealjs/scripts/check-overflow.js ./presentation.html
+```
+
+### 3. 导出与截图
+将幻灯片转换为 PDF 或生成逐页截图：
+```bash
+npx decktape reveal presentation.html output.pdf --screenshots
+```
+
+---
+
+## 📄 许可证
+
+MIT

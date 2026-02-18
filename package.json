@@ -1,7 +1,7 @@
 {
   "name": "revealjs-skill",
   "version": "1.0.0",
-  "description": "Claude Code skill for making reveal.js presentations",
+  "description": "Gemini CLI skill for making reveal.js presentations",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ryanbbrown/reveal-js-skill.git"

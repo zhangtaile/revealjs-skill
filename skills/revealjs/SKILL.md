@@ -92,12 +92,13 @@ Based on the user's content, determine:
 Use the `create-presentation.js` script (located in the `scripts/` directory next to this SKILL.md file) to generate the HTML scaffold.
 
 ```bash
+# Get the script path from your skill location
 node <path-to-skill>/scripts/create-presentation.js --structure 1,1,d,3,1,d,1 --title "My Presentation" --output presentation.html
 ```
 
 **Finding the script path:** The script is at `scripts/create-presentation.js` relative to where this SKILL.md file is located. Common locations:
-- Project skill: `.claude/skills/revealjs/scripts/create-presentation.js`
-- User skill: `~/.claude/skills/revealjs/scripts/create-presentation.js`
+- Workspace skill: `.gemini/skills/revealjs/scripts/create-presentation.js`
+- User skill: `~/.gemini/skills/revealjs/scripts/create-presentation.js`
 
 **Options:**
 - `--slides N` - Create N horizontal slides (simple mode)
@@ -259,7 +260,7 @@ Why inline styles for grids? Each slide's layout needs vary - column ratios, gap
 Run the overflow checker to ensure no slides have content that extends beyond boundaries:
 
 ```bash
-node scripts/check-overflow.js presentation.html
+node <path-to-skill>/scripts/check-overflow.js presentation.html
 ```
 
 The script checks each slide for:
@@ -434,5 +435,5 @@ The scaffold includes the Chart.js plugin for adding bar, line, pie, doughnut, a
 
 Required for the scripts, should be already installed:
 - **Node.js** (for running scripts)
-- **Puppeteer** (for overflow checking): `npm install puppeteer`
+- **Playwright** (for overflow checking): `npm install playwright`
 - **Decktape** (for screenshots): `npx decktape` (runs directly)
